@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://jitpack.io' }
+    maven { url = 'https://repo.extendedclip.com/releases/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly 'com.github.HologramLib:HologramLib:1.7.1'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+def serverPluginsDir = file("C:/Users/misha/Proton Drive/mishanikolchuk03/My files/servers/minecraft/ChaosFrontierDev/plugins")
+
+tasks.register('copyToServer', Copy) {
+    dependsOn build
+    from(layout.buildDirectory.dir("libs"))
+    into(serverPluginsDir)
+}
+
+tasks.register('devWatch') {
+    doLast {
+        println "Watching for changes..."
+
+        exec {
+            // Unix: commandLine 'sh', '-c', './gradlew build copyToServer --continuous'
+            commandLine "cmd", "/c", "gradlew.bat", "build", "copyToServer", "--continuous"
+        }
+    }
+}
