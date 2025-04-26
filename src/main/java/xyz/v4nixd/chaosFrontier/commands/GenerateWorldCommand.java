@@ -14,29 +14,22 @@ public class GenerateWorldCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (!isSentByPlayer(sender)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage("Only user can use this command");
             return false;
         }
-
-        Player player = (Player) sender;
 
         String worldName = getWorldName(args);
         boolean genStructureBool = getGenerateStructuresBool(args);
         int borderSize = 100;
 
-        WorldGenerator generator = new WorldGenerator();
-        World world = generator.generateWorld(worldName, genStructureBool, borderSize);
+        World world = WorldGenerator.generateWorld(worldName, genStructureBool, borderSize);
         String generatedMessage = "§aWorld §r" + world.getName() + " §a created";
         player.sendMessage(generatedMessage);
 
         teleportPlayerToWorld(world, player);
 
         return true;
-    }
-
-    private boolean isSentByPlayer(CommandSender sender) {
-        return sender instanceof Player;
     }
 
     private String getWorldName(String[] args) {

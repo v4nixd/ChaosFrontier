@@ -7,15 +7,8 @@ import org.bukkit.WorldCreator;
 import org.jetbrains.annotations.NotNull;
 
 public class WorldGenerator {
-    public World generateWorld(@NotNull String worldName, Boolean genStructuresBool, int borderSize) {
-        if (genStructuresBool == null) {
-            genStructuresBool = false;
-        }
-
-        if (borderSize < 0) {
-            borderSize = Math.abs(borderSize);
-        }
-
+    public static World generateWorld(@NotNull String worldName, boolean genStructuresBool, int borderSize) {
+        borderSize = Math.abs(borderSize); // make borderSize absolute so it cant be negative
         worldName = "gameworld_" + worldName;
 
         WorldCreator creator = new WorldCreator(worldName);

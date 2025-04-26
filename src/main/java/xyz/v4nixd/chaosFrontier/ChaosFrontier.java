@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import xyz.v4nixd.chaosFrontier.commands.GenerateWorldCommand;
+import xyz.v4nixd.chaosFrontier.lobby.LobbyWorld;
 
 public final class ChaosFrontier extends JavaPlugin {
 
@@ -14,6 +15,8 @@ public final class ChaosFrontier extends JavaPlugin {
         getLogger().info("ChaosFrontier loaded");
 
         setCommandExecutor("genworld", new GenerateWorldCommand());
+
+        LobbyWorld lobbyWorld = new LobbyWorld(this);
     }
 
     @Override
