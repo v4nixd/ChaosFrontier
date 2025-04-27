@@ -3,6 +3,9 @@ version: '1.0-SNAPSHOT'
 main: xyz.v4nixd.chaosFrontier.ChaosFrontier
 api-version: '1.20'
 
+depend:
+  - HologramLib
+
 commands:
   genworld:
     description: Generate new world
